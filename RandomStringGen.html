@@ -1,0 +1,149 @@
+<!-- This is a page for generating random strings (passwords, etc.) -->
+<html>
+<head>
+<title>Random String Generator</title>
+
+<script src="RandomStringGen.js"></script>
+
+<style>
+body {
+    # font-family: Verdana;
+    # font-size: 11px;
+}
+table {
+  border: 1px solid #f2f2f2;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+.result {
+    background-color: grey;
+    padding:5px;
+    margin:5px;
+    text-align:center;
+    border-radius:5px;
+}
+</style>
+
+</head>
+
+<body>
+<h2> Random String Generator </h2>
+
+Select the string length and character groups to include and click "Generate".<br><br>
+
+<table>
+<tr>
+    <th colspan=2>Settings &nbsp; &nbsp;  </th>
+</tr>
+<tr>
+    <td>
+        String Length: 
+    </td>
+    <td>
+        <input type="number" id="strlen" name="strlen" />
+    </td>
+</tr>
+<tr>
+    <th colspan=2>Characters to Include</th>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="inAlphaU" name="inAlphaU" />
+        <label for="inAlphaU"> Uppercase (A, B, C, ...)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="inUndscr" name="inUndscr" />
+        <label for="inUndscr"> Underscore (_)</label>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="inAlphaL" name="inAlphaL" />
+        <label for="inAlphaL"> Lowercase (a, b, c, ...)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="inSpec" name="inSpec" />
+        <label for="inSpec"> Special characters (including space)</label>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="inDigit" name="inDigit" />
+        <label for="inDigit"> Digits (0, 1, 2, ...)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="inAnsiHi" name="inAnsiHi" />
+        <label for="inAnsiHi"> High ANSI characters</label>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="inDash" name="inDash" />
+        <label for="inDash"> Dash (-)</label>
+    </td>
+    <td>
+        
+    </td>
+</tr>
+<tr>
+    <th colspan=2>Characters to Exclude</th>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="exSpace" name="exSpace" />
+        <label for="exSpace"> Space (&nbsp;)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="exAst" name="exAst" />
+        <label for="exAst"> Asterisk (*)</label>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="exPound" name="exPound" />
+        <label for="exPound"> Pound (#)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="exSlash" name="exSlash" />
+        <label for="exSlash"> Forward Slash (&#47;)</label>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="exPct" name="exPct" />
+        <label for="exPct"> Percent (%)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="exBackslash" name="exBackslash" />
+        <label for="exBackslash"> Back Slash (&#92;)</label>
+    </td>
+</tr>
+<tr>
+    <td>
+        <input type="checkbox" id="exAmper" name="exAmper" />
+        <label for="exAmper"> Ampersand (&amp;)</label>
+    </td>
+    <td>
+        <input type="checkbox" id="exAscii" name="exAscii" />
+        <label for="exAscii"> Ascii (&#64;)</label>
+    </td>
+</tr>
+</table>
+<br>
+
+<button type="button" id="UpdateButton" onclick="buildString()">Generate</button>
+<br><br><br>
+
+<div class="result" id="Result"> <!-- result goes here. --> </div>
+
+</body>
+
+
+</html>
