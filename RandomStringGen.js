@@ -7,7 +7,7 @@
 //Last Run  :   
 //____________________________
 
-// see this next: https://www.w3schools.com/js/js_cookies.asp
+// see this next: https://www.w3schools.com/js/js_cookies.asp (work on parsing and retrieving next)
 
 function buildString()
 {
@@ -92,12 +92,7 @@ function saveSettings() {
         checkedList += checkboxes[i].id;
     }
     
-    setCookie("checkopt",checkedList,365);
-    
-    // TESTING
-    console.log("strlen: " + document.getElementById("strlen").value);
-    console.log("checkboxes: " + checkedList);
-    
+    setCookie("checkopt",checkedList,365);    
 }
 
 function retrieveSettings() {
