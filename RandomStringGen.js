@@ -35,9 +35,7 @@ function buildString()
         var ch = charall[Math.floor(Math.random()*charall.length)];
         resultstr += String.fromCharCode(ch);
     }
-    
-    //console.log(resultstr); // debug
-    
+      
     textToClipboard(resultstr);
     document.getElementById("Result").innerHTML = 'Your string: ' + resultstr + '<br><br> Copied to clipboard';     
 
@@ -84,6 +82,8 @@ function getCookie(cname) {
 function saveSettings() {
     // save current selections to cookies
     setCookie("strlen",document.getElementById("strlen").value,365);
+    setCookie("inAlphaU",document.getElementById("inAlphaU").value,365);
+    
 }
 
 function retrieveSettings() {
