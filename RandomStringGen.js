@@ -82,7 +82,21 @@ function getCookie(cname) {
 function saveSettings() {
     // save current selections to cookies
     setCookie("strlen",document.getElementById("strlen").value,365);
-    setCookie("inAlphaU",document.getElementById("inAlphaU").value,365);
+        
+    var checkedList = "";
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked') // list of all checked checkboxes
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (i > 0) {
+            checkedList += "-";
+        }
+        checkedList += checkboxes[i].id;
+    }
+    
+    setCookie("checkopt",checkedList,365);
+    
+    // TESTING
+    console.log("strlen: " + document.getElementById("strlen").value);
+    console.log("checkboxes: " + checkedList);
     
 }
 
@@ -92,4 +106,15 @@ function retrieveSettings() {
     if (decodedCookie.length > 0) {
         console.log(decodedCookie);
     }
+    
+    // take the value of the checkbox cookie and check all the boxes by ID.  cbxtest is an example of how the cookie value will be formatted:
+    
+    //var cbxtest = "inAlphaU-inUndscr-inAlphaL-inSpec-inDigit-inAnsiHi-inDash"
+    //var cbxarr = cbxtest.split("-");
+    //for(k = 0; k < cbxarr.length; k++) {
+    //    document.getElementById(cbxarr[k]).checked = true;
+    //} 
+    
+    
+    
 }
