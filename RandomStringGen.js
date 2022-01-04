@@ -7,8 +7,6 @@
 //Last Run  :   
 //____________________________
 
-// see this next: https://www.w3schools.com/js/js_cookies.asp (work on parsing and retrieving next)
-
 function buildString()
 {   
     // get desired length of result string
@@ -21,21 +19,112 @@ function buildString()
     
     // build ascii value arrays for upper/lower alpha characters and digits
     // further information on code below to build arrays, see https://jasonwatmore.com/post/2021/10/02/vanilla-js-create-an-array-with-a-range-of-numbers-in-a-javascript
+    let charall = [];
     const alphaU = [...Array(90 - 65 + 1).keys()].map(x => x + 65); // uppercase alpha ASCII characters
     const alphaL = [...Array(122 - 97 + 1).keys()].map(x => x + 97); // uppercase alpha ASCII characters
     const digit = [...Array(57 - 48 + 1).keys()].map(x => x + 48); // digit ASCII characters
-    const charall = digit.concat(alphaU, alphaL);
+    const dash = [45]; // dash
+    const undscr = [95]; // underscore
+    const spec = [32,33,34,35,36,37,38,39,40,41,42,43,44,46,47,58,59,60,61,62,63,64,91,92,93,94,96,123,124,125,126]; // special characters other than dash and underscore
+    const ansiHi = [...Array(255 - 128 + 1).keys()].map(x => x + 128); // high ansi characters
+    const space = 32;
+    const pound = 35;
+    const pct = 37;
+    const amp = 38;
+    const ast = 42;
+    const fsl = 47;
+    const bsl = 92;
+    const asc = 64;    
     
+    // add items based on selections:
+    
+    if (document.getElementById('inAlphaU').checked) {
+            charall = charall.concat(alphaU);
+        }
+    if (document.getElementById('inAlphaL').checked) {
+            charall = charall.concat(alphaL);
+        }
+    if (document.getElementById('inDigit').checked) {
+            charall = charall.concat(digit);
+        }
+    if (document.getElementById('inDash').checked) {
+            charall = charall.concat(dash);
+        }
+    if (document.getElementById('inUndscr').checked) {
+            charall = charall.concat(undscr);
+        }
+    if (document.getElementById('inSpec').checked) {
+            charall = charall.concat(spec);
+        }
+    if (document.getElementById('inAnsiHi').checked) {
+            charall = charall.concat(ansiHi);
+        }
+    
+    // remove items based on exclusions:
+    
+    if (document.getElementById('exSpace').checked) {
+            var indspace = charall.indexOf(space);
+            if (indspace > -1) {
+                charall.splice(indspace, 1);
+            }
+        }
+    if (document.getElementById('exPound').checked) {
+            var indpound = charall.indexOf(pound);
+            if (indpound > -1) {
+                charall.splice(indpound, 1);
+            }
+        }
+    if (document.getElementById('exPct').checked) {
+            var indpct = charall.indexOf(pct);
+            if (indpct > -1) {
+                charall.splice(indpct, 1);
+            }
+        }
+    if (document.getElementById('exAmper').checked) {
+            var indamp = charall.indexOf(amp);
+            if (indamp > -1) {
+                charall.splice(indamp, 1);
+            }
+        }
+    if (document.getElementById('exAst').checked) {
+            var indast = charall.indexOf(ast);
+            if (indast > -1) {
+                charall.splice(indast, 1);
+            }
+        }
+    if (document.getElementById('exSlash').checked) {
+            var indfsl = charall.indexOf(fsl);
+            if (indfsl > -1) {
+                charall.splice(indfsl, 1);
+            }
+        }
+    if (document.getElementById('exBackslash').checked) {
+            var indbsl = charall.indexOf(bsl);
+            if (indbsl > -1) {
+                charall.splice(indbsl, 1);
+            }
+        }
+    if (document.getElementById('exAscii').checked) {
+            var indasc = charall.indexOf(asc);
+            if (indasc > -1) {
+                charall.splice(indasc, 1);
+            }
+        }
+       
     // build result string
     
-    for (let i = 0; i < len; i++) {
-        var ch = charall[Math.floor(Math.random()*charall.length)];
-        resultstr += String.fromCharCode(ch);
+    if (charall.length > 0) {
+        for (let i = 0; i < len; i++) {
+            var ch = charall[Math.floor(Math.random()*charall.length)];
+            resultstr += String.fromCharCode(ch);
+        }
+          
+        textToClipboard(resultstr);
+        document.getElementById("Result").innerHTML = 'Your string: ' + resultstr + '<br><br> Copied to clipboard';     
     }
-      
-    textToClipboard(resultstr);
-    document.getElementById("Result").innerHTML = 'Your string: ' + resultstr + '<br><br> Copied to clipboard';     
-
+    else {
+        document.getElementById("Result").innerHTML = 'You must select characters to include in the string.'; 
+    }
     // save current settings
     saveSettings();
 
@@ -95,15 +184,9 @@ function saveSettings() {
 function retrieveSettings() {
     // retrieve any settings if cookies exist
     let decodedCookie = decodeURIComponent(document.cookie);
-    if (decodedCookie.length > 0) {
-        console.log("here is the full cookie");
-        console.log(decodedCookie);
-        
+    if (decodedCookie.length > 0) {      
         //strlen - last saved length value
         strlenck = getCookie("strlen");
-        console.log("here is the saved lenth");
-        console.log(strlenck);
-        
         if (isNaN(strlenck) || strlenck.length < 1) {
             document.getElementById("strlen").value = 30; //default value to start
         }
@@ -113,9 +196,6 @@ function retrieveSettings() {
         
         //checkopt - last saved checkboxes selected
         checkoptck = getCookie("checkopt");
-        console.log("here are the checked options");
-        console.log(checkoptck); 
-        
         if(checkoptck.length > 0) {
             var cbxarr = checkoptck.split("-");
             for(k = 0; k < cbxarr.length; k++) {
@@ -124,15 +204,5 @@ function retrieveSettings() {
         }       
         
     }
-    
-    // take the value of the checkbox cookie and check all the boxes by ID.  cbxtest is an example of how the cookie value will be formatted:
-    
-    //var cbxtest = "inAlphaU-inUndscr-inAlphaL-inSpec-inDigit-inAnsiHi-inDash"
-    //var cbxarr = cbxtest.split("-");
-    //for(k = 0; k < cbxarr.length; k++) {
-    //    document.getElementById(cbxarr[k]).checked = true;
-    //} 
-    
-    
-    
+   
 }
