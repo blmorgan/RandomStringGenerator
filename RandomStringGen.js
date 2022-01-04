@@ -10,10 +10,7 @@
 // see this next: https://www.w3schools.com/js/js_cookies.asp (work on parsing and retrieving next)
 
 function buildString()
-{
-    // retrieve settings if they exist
-    retrieveSettings();
-    
+{   
     // get desired length of result string
     var len = document.getElementById("strlen").value;
     if (isNaN(len) || len.length < 1) {
@@ -99,10 +96,14 @@ function retrieveSettings() {
     // retrieve any settings if cookies exist
     let decodedCookie = decodeURIComponent(document.cookie);
     if (decodedCookie.length > 0) {
+        console.log("here is the full cookie");
         console.log(decodedCookie);
         
         //strlen - last saved length value
         strlenck = getCookie("strlen");
+        console.log("here is the saved lenth");
+        console.log(strlenck);
+        
         if (isNaN(strlenck) || strlenck.length < 1) {
             document.getElementById("strlen").value = 30; //default value to start
         }
@@ -110,18 +111,17 @@ function retrieveSettings() {
             document.getElementById("strlen").value = strlenck;
         }        
         
-        console.log(strlenck);
-        
         //checkopt - last saved checkboxes selected
         checkoptck = getCookie("checkopt");
+        console.log("here are the checked options");
+        console.log(checkoptck); 
+        
         if(checkoptck.length > 0) {
             var cbxarr = checkoptck.split("-");
             for(k = 0; k < cbxarr.length; k++) {
                 document.getElementById(cbxarr[k]).checked = true;
             }
-        }
-        
-        console.log(checkoptck);        
+        }       
         
     }
     
