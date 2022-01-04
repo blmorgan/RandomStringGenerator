@@ -100,6 +100,29 @@ function retrieveSettings() {
     let decodedCookie = decodeURIComponent(document.cookie);
     if (decodedCookie.length > 0) {
         console.log(decodedCookie);
+        
+        //strlen - last saved length value
+        strlenck = getCookie("strlen");
+        if (isNaN(strlenck) || strlenck.length < 1) {
+            document.getElementById("strlen").value = 30; //default value to start
+        }
+        else {
+            document.getElementById("strlen").value = strlenck;
+        }        
+        
+        console.log(strlenck);
+        
+        //checkopt - last saved checkboxes selected
+        checkoptck = getCookie("checkopt");
+        if(checkoptck.length > 0) {
+            var cbxarr = checkoptck.split("-");
+            for(k = 0; k < cbxarr.length; k++) {
+                document.getElementById(cbxarr[k]).checked = true;
+            }
+        }
+        
+        console.log(checkoptck);        
+        
     }
     
     // take the value of the checkbox cookie and check all the boxes by ID.  cbxtest is an example of how the cookie value will be formatted:
