@@ -3,7 +3,7 @@
 //Author    : Ben Morgan
 //Date      : 12/13/2021
 //Purpose   : Generate a random string of input length for basic passwords or other purposes.
-//Updated   : 
+//Updated   : 07/18/2023 - update copy to clipboard function to use document.execCommand
 //Last Run  :   
 //____________________________
 
@@ -137,8 +137,8 @@ function textToClipboard (txt)
     document.body.appendChild(dummy);
     dummy.value = txt;
     dummy.select();
-    navigator.clipboard.writeText(txt);
-    // document.execCommand("copy");
+    // navigator.clipboard.writeText(txt);
+    document.execCommand("copy");
     document.body.removeChild(dummy);
 }
 
